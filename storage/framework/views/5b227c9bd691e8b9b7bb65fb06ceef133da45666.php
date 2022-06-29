@@ -2,11 +2,11 @@
 <div class="app align-content-stretch d-flex flex-wrap">
     <div class="app-sidebar">
         <div class="logo">
-            <a href="<?php echo e(route('home')); ?>" class="logo-icon" style="background: url(<?php echo e(asset('images/avatars/avatar.gif')); ?>) no-repeat; background-position: center center;background-size: 42px;">
+            <a href="<?php echo e(route('home')); ?>" class="logo-icon" style="background: url(<?php echo e(asset('images/avatars/avatar2.gif')); ?>) no-repeat; background-position: center center;background-size: 42px;">
             <span class="logo-text">WTZ</span></a>
             <div class="sidebar-user-switcher user-activity-online">
                 <a href="/">
-                    <img src="<?php echo e(asset('images/avatars/avatar2.png')); ?>">
+                    <img src="<?php echo e(asset('public/images/avatars/avatar2.png')); ?>">
                     <span class="activity-indicator"></span>
                     <span class="user-info-text"><?php echo e(Auth::user()->username); ?><br></span>
                 </a>
@@ -37,6 +37,9 @@
                 <?php if(Auth::user()->role_id==1): ?>
                     <li class="<?php echo e(request()->is('user') ? 'active-page' : ''); ?>">
                         <a href="<?php echo e(route('user.index')); ?>"><i class="material-icons-two-tone">settings</i><?php echo e('Users'); ?></a>
+                    </li>
+                    <li class="<?php echo e(request()->is('role') ? 'active-page' : ''); ?>">
+                        <a href="<?php echo e(route('role.index')); ?>"><i class="material-icons-two-tone">settings</i><?php echo e('Roles'); ?></a>
                     </li>
                 <?php endif; ?>
             </ul>

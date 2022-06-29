@@ -25,6 +25,11 @@ Route::post('/send-button', [ApiController::class,'messageButton']);
 Route::post('/send-template', [ApiController::class,'messageTemplate']);
 Route::post('/send-document', [ApiController::class,'messageDocument']);
 
+Route::post('api_login', [ApiController::class,'login']);
+Route::post('user/store', [ApiController::class,'userStore']);
+Route::get('user/edit/{id}', [ApiController::class,'editUser']);
+Route::post('user/update/{id}', [ApiController::class,'updateUser']);
+Route::post('user/delete/{id}', [ApiController::class,'deleteUser']);
 
 
 

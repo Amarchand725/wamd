@@ -1,5 +1,5 @@
 <x-layout-dashboard title="Users">
-
+    <input type="hidden" id="page_url" value="{{ route('user.index') }}">
     <div class="app-content">
         <div class="content-wrapper">
             <div class="container">
@@ -24,7 +24,15 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5>List Users</h5>
-                                <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#add-user-modal"><i class="material-icons">add</i>Add Users</button>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <input type="text" name="search" id="search" class="form-control" placeholder="Search">
+                                        <input type="hidden" name="status" id="status" value="All">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-primary" style="padding: 10px 20px;" data-bs-toggle="modal" data-bs-target="#add-user-modal"><i class="material-icons">add</i>Add Users</button>
+                                    </div>
+                                </div>
                                 <table class="table table-striped">
                                     <thead>
                                         <th>SN#</th>
@@ -34,7 +42,7 @@
                                         <th>Limit Device</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="body">
                                         @foreach($users as $key=>$user)
                                             <tr id="id-{{ $user->id }}">
                                                 <td>{{ $users->firstItem()+$key }}.</td>

@@ -14,14 +14,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
-    <link href="<?php echo e(asset('plugins/bootstrap/css/bootstrap.min.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('plugins/perfectscroll/perfect-scrollbar.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('plugins/pace/pace.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('plugins/highlight/styles/github-gist.css')); ?>" rel="stylesheet">
-    <script src="<?php echo e(asset('plugins/jquery/jquery-3.5.1.min.js')); ?>"></script>
-    <link href="<?php echo e(asset('css/main.min.css')); ?>" rel="stylesheet">
-    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo e(asset('images/avatars/avatar2.png')); ?>" />
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(asset('images/avatars/avatar.png')); ?>" />
+    <link href="<?php echo e(asset('public/plugins/bootstrap/css/bootstrap.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('public/plugins/perfectscroll/perfect-scrollbar.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('public/plugins/pace/pace.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('public/plugins/highlight/styles/github-gist.css')); ?>" rel="stylesheet">
+    <script src="<?php echo e(asset('public/plugins/jquery/jquery-3.5.1.min.js')); ?>"></script>
+    <link href="<?php echo e(asset('public/css/main.min.css')); ?>" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo e(asset('public/images/avatars/avatar2.png')); ?>" />
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(asset('public/images/avatars/avatar2.png')); ?>" />
 </head>
 
 <body>
@@ -42,16 +42,16 @@
 
     <!-- Javascripts -->
 
-<script src="<?php echo e(asset('plugins/bootstrap/js/popper.min.js')); ?>"></script>
-<script src="<?php echo e(asset('plugins/bootstrap/js/bootstrap.min.js')); ?>"></script>
-<script src="<?php echo e(asset('plugins/perfectscroll/perfect-scrollbar.min.js')); ?>"></script>
-<script src="<?php echo e(asset('plugins/pace/pace.min.js')); ?>"></script>
-<script src="<?php echo e(asset('plugins/highlight/highlight.pack.js')); ?>"></script>
-<script src="<?php echo e(asset('plugins/blockUI/jquery.blockUI.min.js')); ?>"></script>
-<script src="<?php echo e(asset('js/main.min.js')); ?>"></script>
-<script src="<?php echo e(asset('js/custom.js')); ?>"></script>
-<script src="<?php echo e(asset('js/pages/blockui.js')); ?>"></script>
-<script src="<?php echo e(asset('js/search.js')); ?>"></script>
+<script src="<?php echo e(asset('public/plugins/bootstrap/js/popper.min.js')); ?>"></script>
+<script src="<?php echo e(asset('public/plugins/bootstrap/js/bootstrap.min.js')); ?>"></script>
+<script src="<?php echo e(asset('public/plugins/perfectscroll/perfect-scrollbar.min.js')); ?>"></script>
+<script src="<?php echo e(asset('public/plugins/pace/pace.min.js')); ?>"></script>
+<script src="<?php echo e(asset('public/plugins/highlight/highlight.pack.js')); ?>"></script>
+<script src="<?php echo e(asset('public/plugins/blockUI/jquery.blockUI.min.js')); ?>"></script>
+<script src="<?php echo e(asset('public/js/main.min.js')); ?>"></script>
+<script src="<?php echo e(asset('public/js/custom.js')); ?>"></script>
+<script src="<?php echo e(asset('public/js/pages/blockui.js')); ?>"></script>
+<script src="<?php echo e(asset('public/js/search.js')); ?>"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 

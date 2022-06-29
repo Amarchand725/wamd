@@ -27,10 +27,8 @@ class HomeController extends Controller
             'sender' => ['required','min:10','unique:numbers,body']
         ]);
 
-        $total_added_devices = Number::where('user_id', Auth::user()->id)->count();
-        $total_added_devices = $total_added_devices+1;
-        if($total_added_devices <= Auth::user()->device_limit){
-            Number::create([
+        if(Auth::user()->role_id==1){
+            $model = Number::create([
                 'user_id' => Auth::user()->id,
                 'body' => $request->sender,
                 'webhook' => $request->urlwebhook,
@@ -38,9 +36,27 @@ class HomeController extends Controller
                 'messages_sent' => 0
             ]);
 
-            return 'success';
+            if($model){
+                return 'success';
+            }else{
+                return 'failed';
+            } 
         }else{
-            return 'failed';
+            $total_added_devices = Number::where('user_id', Auth::user()->id)->count();
+            $total_added_devices = $total_added_devices+1;
+            if($total_added_devices <= Auth::user()->device_limit){
+                Number::create([
+                    'user_id' => Auth::user()->id,
+                    'body' => $request->sender,
+                    'webhook' => $request->urlwebhook,
+                    'status' => 'Disconnect',
+                    'messages_sent' => 0
+                ]);
+
+                return 'success';
+            }else{
+                return 'failed';
+            }
         }
     }
     public function destroy(Request $request){

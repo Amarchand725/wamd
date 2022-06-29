@@ -128,6 +128,31 @@
                     <h5 class="modal-title" id="exampleModalLabel">Add Device</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form id="SubmitForm">
+                    @csrf
+                    <div class="modal-body">
+                        <label for="sender" class="form-label">Number</label>
+                        <input type="number" name="sender" class="form-control" id="sender" placeholder="Enter device number">
+                        <p class="text-small text-danger" id="error-sender"></p>
+                        <label for="urlwebhook" class="form-label">Link webhook</label>
+                        <input type="text" name="urlwebhook" class="form-control" id="urlwebhook" placeholder="Enter url webhook">
+                        <p class="text-small text-danger" id="error-urlwebook"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit"  name="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- <div class="modal fade" id="addDevice" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Device</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
                 <form action="{{route('addDevice')}}" method="POST">
                     @csrf
                     <div class="modal-body">
@@ -145,8 +170,51 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
     <script>
+        $('#SubmitForm').on('submit',function(e){
+            e.preventDefault();
+            let sender = $('#sender').val();
+            let urlwebhook = $('#urlwebhook').val();
+            
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{route('addDevice')}}",
+                type:"POST",
+                data:{
+                    sender : sender,
+                    urlwebhook : urlwebhook,
+                },
+                
+                success:function(response){
+                    if(response=='success'){
+                        $('#sender').val('');
+                        $('#urlwebhook').val('');
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Device added successfully.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        location.reload();
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Your device limit is over.!.',
+                        })
+                    }
+                },
+                error: function(response) {
+                    $('#error-sender').text(response.responseJSON.errors.sender);
+                    $('#error-urlwebook').text(response.responseJSON.errors.urlwebhook);
+                },
+            });
+        });
+
         var typingTimer;
         var doneTypingInterval = 1000;
         $('#webhook').keydown(function(){

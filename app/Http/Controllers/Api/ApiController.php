@@ -7,13 +7,130 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Number;
 use Illuminate\Support\Facades\Http;
+use App\Models\User;
+use Auth;
 class ApiController extends Controller
 {
     
-    
+    public function login(Request $request)
+    {
+        $user = User::where('username', $request->username)->first();
+        if(!empty($user) && $user->role_id==1){
+            $credentials = $request->only('username', 'password');
+
+            if (Auth::attempt($credentials)) {
+                $token = $user->createToken('auth_token')->plainTextToken;
+
+                return response()
+                    ->json(['message' => 'You have logged in successfully dear '.$user->name.', welcome to dashboard','access_token' => $token,
+                        'token_type' => 'Bearer',
+                        'details' => $user 
+                    ],200);
+            }else{
+                return response()
+                ->json(['message' => 'Not found your account.',
+                    'token_type' => 'Bearer',
+                ],404);
+            }
+        }else{
+            return response()
+            ->json(['message' => 'Not found your account.',
+                'token_type' => 'Bearer',
+            ],404);
+        }
+    }
+
+    public function userStore(Request $request)
+    {
+        $validator = $request->validate([
+            'username' => 'unique:users|min:4|required',
+            'password'  => 'required|min:5',
+            'role_id' => 'required',
+            'device_limit' => 'required',
+        ]); 
+
+        $model = User::create([
+            'role_id' => $request->role_id,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+            'expired_date' => $request->expired_date,
+            'life_time' => $request->life_time,
+            'device_limit' => $request->device_limit,
+        ]);
+
+        if($model){
+            return response()
+            ->json(['message' => 'You have registered user successfully',
+                'token_type' => 'Bearer',
+                'details' => $model 
+            ],200);
+        }else{
+            return response()
+            ->json(['message' => 'Something went wrong.',
+                'token_type' => 'Bearer',
+            ],404);
+        }
+    }
+
+    public function editUser($id)
+    {
+        $user = User::where('id', $id)->first();
+        return response()
+                    ->json(['message' => 'User Details',
+                        'token_type' => 'Bearer',
+                        'details' => $user 
+                    ],200);
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $validator = $request->validate([
+            'role_id' => 'required',
+            'device_limit' => 'required',
+        ]);
+
+        $model = User::where('id', $id)->first();
+        $model->role_id = $request->role_id;
+        $model->username = $request->username;
+        if(!empty($request->password)){
+            $model->password = $request->password;
+        }
+        $model->expired_date = $request->expired_date;
+        $model->life_time = $request->life_time;
+        $model->device_limit = $request->device_limit;
+        $model->save();
+
+        if($model){
+            return response()
+            ->json(['message' => 'You have updated user successfully',
+                'token_type' => 'Bearer',
+                'details' => $model 
+            ],200);
+        }else{
+            return response()
+            ->json(['message' => 'Something went wrong.',
+                'token_type' => 'Bearer',
+            ],404);
+        }
+    }
+
+    public function deleteUser($id)
+    {
+        $model = User::where('id', $id)->delete();
+        if($model){
+            return response()
+            ->json(['message' => 'You have deleted user successfully',
+                'token_type' => 'Bearer',
+            ],200);
+        }else{
+            return response()
+            ->json(['message' => 'Something went wrong.',
+                'token_type' => 'Bearer',
+            ],404);
+        }
+    }
 
     public function messageText(Request $request){
-       
        if(!isset($request->sender) || !isset($request->api_key) || !isset($request->number) || !isset($request->message)){
         return response()->json([
             'status' => false ,

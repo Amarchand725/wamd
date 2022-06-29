@@ -15,6 +15,7 @@ use App\Http\Controllers\ScheduleMessageController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redirect;
 
@@ -31,6 +32,7 @@ Route::get('/', function()
     return Redirect::to( '/login');
     // OR: return Redirect::intended('/bands'); // if using authentication
 });
+
 Route::middleware('installed.app','auth')->group(function (){
     Route::get('/file-manager',[FileManagerController::class,'index'])->name('file-manager');
 
@@ -111,4 +113,5 @@ Route::post('/settings/activate_license',[SettingController::class,'activate_lic
 Route::post('authenticate', [HomeController::class, 'authenticate'])->name('authenticate');
 //user
 Route::resource('user', UserController::class);
+Route::resource('role', RoleController::class);
 

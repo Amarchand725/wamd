@@ -13,8 +13,25 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->ajax()){
+            $query = User::orderby('id', 'desc')->where('role_id', '!=', 1);
+            if($request['search'] != ""){
+                $query->where('username', 'like', '%'. $request['search'] .'%');
+                $query->orWhere('expired_date', 'like', '%'. $request['search'] .'%');
+                $query->orWhere('life_time', 'like', '%'. $request['search'] .'%');
+                $query->orWhere('device_limit', 'like', '%'. $request['search'] .'%');
+            }
+            if($request['status']!="All"){
+                if($request['status']==2){
+                    $request['status'] = 0;
+                }
+                $query->where('status', $request['status']);
+            }
+            $users = $query->paginate(10);
+            return (string) view('admin.user.search', compact('users'));
+        }
         $users = User::orderby('id', 'desc')->where('role_id', '!=', 1)->paginate(10);
         $roles = Role::where('role', '!=', 'Admin')->where('status', 1)->get();
         return view('admin.user.index', compact('users', 'roles'));

@@ -18,6 +18,7 @@ class CreateRolesTable extends Migration
             $table->string('role');
             $table->string('description')->nullable();
             $table->boolean('status')->default(1);
+            $table->string('deleted_at')->nullable();
             $table->timestamps();
         });
     }

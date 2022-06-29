@@ -2,11 +2,11 @@
 <div class="app align-content-stretch d-flex flex-wrap">
     <div class="app-sidebar">
         <div class="logo">
-            <a href="{{route('home')}}" class="logo-icon" style="background: url({{asset('images/avatars/avatar.gif')}}) no-repeat; background-position: center center;background-size: 42px;">
+            <a href="{{route('home')}}" class="logo-icon" style="background: url({{asset('images/avatars/avatar2.gif')}}) no-repeat; background-position: center center;background-size: 42px;">
             <span class="logo-text">WTZ</span></a>
             <div class="sidebar-user-switcher user-activity-online">
                 <a href="/">
-                    <img src="{{asset('images/avatars/avatar2.png')}}">
+                    <img src="{{asset('public/images/avatars/avatar2.png')}}">
                     <span class="activity-indicator"></span>
                     <span class="user-info-text">{{ Auth::user()->username}}<br></span>
                 </a>
@@ -37,6 +37,9 @@
                 @if(Auth::user()->role_id==1)
                     <li class="{{request()->is('user') ? 'active-page' : ''}}">
                         <a href="{{ route('user.index') }}"><i class="material-icons-two-tone">settings</i>{{ 'Users' }}</a>
+                    </li>
+                    <li class="{{request()->is('role') ? 'active-page' : ''}}">
+                        <a href="{{ route('role.index') }}"><i class="material-icons-two-tone">settings</i>{{ 'Roles' }}</a>
                     </li>
                 @endif
             </ul>
